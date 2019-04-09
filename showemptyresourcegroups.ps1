@@ -7,15 +7,16 @@ $Subscriptions = (get-AzureRmSubscription).ID
 
 #Loop through the subscriptions to find all empty Resource Groups and store them in $EmptyRGs
 ForEach ($Subscription in $Subscriptions) {
-    echo "Processing $Subscription"
-    Select-AzureRmSubscription -SubscriptionId $Subscription
+    $SubscriptionName = (Get-AzureRmSubscription).SubscriptionName
+    echo "Processing $SubscriptionName"
+    Select-AzureRmSubscription -SubscriptionId $Subscription | Out-Null
     $AllRGs = (Get-AzureRmResourceGroup).ResourceGroupName
     $UsedRGs = (Get-AzureRmResource | Group-Object ResourceGroupName).Name
     $EmptyRGs = $AllRGs | Where-Object {$_ -notin $UsedRGs}
 }
 
-foreach ($EmptyRG in $EmptyRGs){
-    echo $EmptyRG
+ForEach ($EmptyRG in $EmptyRGs) {
+    echo "Empty Resource Group: $EmptyRGs"
 }
 
 # Loop through the empty Resorce Groups asking if you would like to delete them. And then deletes them.
