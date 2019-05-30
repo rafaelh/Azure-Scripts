@@ -19,7 +19,7 @@ Connect-AzureAD -TenantId $TenantID
 New-AzureADMSInvitation -InvitedUserEmailAddress "$DevEmail" `
                         -InvitedUserDisplayName "$DevUser (StarRez)" `
                         -InviteRedirectUrl "https://www.starrez.com" `
-                        -SendInvitationMessage $False `
+                        -SendInvitationMessage $True `
                         -InvitedUserType "Guest"
 
 
