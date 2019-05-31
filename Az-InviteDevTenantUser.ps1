@@ -13,7 +13,7 @@ $AADGroup = 'fed6268e-8ef4-473b-ab0b-5f069134096d'
 $TenantID = "c4fab47c-0230-4a0c-b61b-d0fb7b2eae27"
 
 ###Connect to Azure tenant
-Connect-AzureAD -TenantId $TenantID
+Connect-AzAccount -TenantId $TenantID
 
 ###Invite User
 New-AzureADMSInvitation -InvitedUserEmailAddress "$DevEmail" `
@@ -24,7 +24,7 @@ New-AzureADMSInvitation -InvitedUserEmailAddress "$DevEmail" `
 
 
 ###Get AAD User ObjectID
-$DevUserObjectID = Get-AzureADUser | Where-Object {$_.DisplayName -Match $DevUser} | Select ObjectID
+$DevUserObjectID = Get-AzADUser | Where-Object {$_.DisplayName -Match $DevUser} | Select ObjectID
 
 ###Add User to 'Owner Access Group'
 Add-AzureADGroupMember -ObjectId "$AADGroup" `
