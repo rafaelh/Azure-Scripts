@@ -1,0 +1,31 @@
+{
+
+}
+
+
+# Reference:
+
+{
+    "mode": "All",
+    "policyRule": {
+        "if": {
+            "allOf": [{
+                    "field": "type",
+                    "equals": "Microsoft.Web/sites/config"
+                },
+                {
+                    "field": "Microsoft.Web/sites/config/ftpsState",
+                    "equals": "AllAllowed"
+                }
+            ]
+        },
+        "then": {
+            "effect": "append",
+            "details": [{
+                "field": "Microsoft.Web/sites/config/ftpsState",
+                "value": "FtpsOnly"
+            }]
+        }
+    },
+    "parameters": {}
+}
