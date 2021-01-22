@@ -1,0 +1,38 @@
+{
+    "parameters": {},
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Web/sites/config"
+          },
+          {
+            "field": "Microsoft.Web/sites/config/ftpsState",
+            "equals": "AllAllowed"
+          }
+        ]
+      },
+      "then": {
+        "effect": "modify",
+        "details": {
+          "roleDefinitionIds": [
+            "4D24B6D4-5E53-4A4F-A7F4-618FA573EE4B",
+            "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+          ],
+          "operations": [
+            {
+              "operation": "addOrReplace",
+              "field": "Microsoft.Web/sites/config/ftpsState",
+              "value": "FtpsOnly"
+            }
+          ]
+        }
+      }
+    }
+  }
+
+Role Definition: Contributor
+
+Error: The policy definition '9abad0ff-9686-471e-a989-3a84dda4c942' has operations referring to aliases that are not modifiable: 'Microsoft.Web/sites/config/ftpsState'.
+
