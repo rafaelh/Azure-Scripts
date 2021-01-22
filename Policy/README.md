@@ -39,32 +39,17 @@ Definition structure: https://docs.microsoft.com/en-us/azure/governance/policy/c
 
 
 
-These fields at the end of the build in policy are conditions that evaluate whether the values of properties in the resource request payload meet certain critera. The `id` is the resource ID of the resource that is being evaluated, and the `name` is it's name.
-
-```json
-    "id": "/providers/Microsoft.Authorization/policyDefinitions/4d24b6d4-5e53-4a4f-a7f4-618fa573ee4b",
-    "name": "4d24b6d4-5e53-4a4f-a7f4-618fa573ee4b"
-```
 
 
 
 
 
-
-
-
-## Disable FTP for webapps
+## Disable FTP for Web Apps
 
 **MS Builtin Policy:** [AppService_AuditFTPS_WebApp_Audit.json](https://github.com/Azure/azure-policy/blob/master/built-in-policies/policyDefinitions/App%20Service/AppService_AuditFTPS_WebApp_Audit.json)
-**Reference Policy:** [policy-require-ftp-disabled.json](policy-require-ftp-disabled.json)
-
+**Enforcement Policy:** [change-webapp-ftpstate-to-ftpsonly.json](change-webapp-ftpstate-to-ftpsonly.json)
 
 Web Apps support deployment via FTP and FTPS. FTP is insecure because authentication occurs in 
-plaintext, allowing anyone snooping on the connection to steal credentials. For this reason the 
-following field:
-
-`Microsoft.Web/sites/config/ftpsState`
-
-Should be set to `FtpsOnly` or `Disabled`, rather than `AllAllowed`.
+plaintext, allowing anyone snooping on the connection to steal credentials. For this reason `Microsoft.Web/sites/config/ftpsState` field should be set to `FtpsOnly` or `Disabled`, rather than `AllAllowed`.
 
 

@@ -1,0 +1,55 @@
+{
+  "mode": "All",
+  "policyRule": {
+    "if": {
+      "field": "type",
+      "equals": "Microsoft.Web/sites"
+    },
+    "then": {
+      "effect": "deployIfNotExists",
+      "details": {
+        "type": "Microsoft.Web/sites/config",
+        "existenceCondition": {
+          "field": "Microsoft.Web/sites/config/ftpsState",
+          "in": [
+            "FtpsOnly",
+            "Disabled"
+          ]
+        },
+        "deployment": {
+          "properties": {
+            "mode": "incremental",
+            "template": {
+              "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+              "contentVersion": "1.0.0.0",
+              "parameters": {
+                "sitename": {
+                  "type": "string"
+                }
+              },
+              "resources": [
+                {
+                  "type": "Microsoft.Web/sites/config",
+                  "name": "[concat(parameters('sitename'), '/web')]",
+                  "apiVersion": "2018-11-01",
+                  "properties": {
+                    "ftpsState": "FtpsOnly"
+                  }
+                }
+              ]
+            },
+            "parameters": {
+              "sitename": {
+                "value": "[field('name')]"
+              }
+            }
+          }
+        },
+        "roleDefinitionIds": [
+          "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+        ]
+      }
+    }
+  },
+  "parameters": {}
+}
